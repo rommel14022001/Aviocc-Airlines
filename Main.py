@@ -1,4 +1,4 @@
-from Avion import *
+from Avion import Avion
 from SerializationFunctions import *
 import os
 from Menu import Menu
@@ -26,7 +26,11 @@ def main():
             'Salir'
         ])
 
-        opcion = int(menu.opcion)
+        try:
+            opcion = int(menu.opcion)
+        except:
+            opcion = -1
+
 
         if opcion == 1:
             Modulo1()
@@ -42,7 +46,7 @@ def main():
             print('Se termino chao')
             break
         else:
-            print("Opcion no valida intente otravez")
+            print("Opción invalida intente otra vez\n")
 
 
 def Modulo1():
