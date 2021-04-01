@@ -2,7 +2,9 @@ import pickle
 import os
 
 
-def recibir_datos_del_txt(nombre_txt, datos):
+def recibir_datos_del_txt(nombre_txt):
+
+    datos = []
 
     lectura_binaria = open(nombre_txt, 'rb')
 

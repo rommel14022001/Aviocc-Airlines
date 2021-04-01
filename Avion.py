@@ -16,7 +16,7 @@ class Avion():
         return self.__serial
 
     def getModelo(self):
-        return self.__Modelo
+        return self.__modelo
 
     def setName(self, new_name):
         self.__name = new_name
