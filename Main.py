@@ -12,6 +12,7 @@ path_pilotos = (os.path.join(dirname, 'Pilotos.txt'))
 aviones = recibir_datos_del_txt(path_aviones)
 pilotos = recibir_datos_del_txt(path_pilotos)
 
+
 def main():
 
     opcion = 0
@@ -66,8 +67,13 @@ def Modulo1():
     nombre = nombre.lstrip()
     counter = int(8-len(str(len(aviones))))
     ceros = ""
-    for i in range(counter):
-        ceros = ceros+"0"
+
+    if (len(str(len(aviones)+1)) == len(str(len(aviones)))) or len(aviones) == 0:
+        for i in range(counter):
+            ceros = ceros+"0"
+    else:
+        for i in range(counter-1):
+            ceros = ceros+"0"
 
     serial = modelo[0]+ceros+str(len(aviones)+1)
     print(serial)
@@ -91,6 +97,7 @@ def Modulo4():
 
 def Modulo5():
     print("MODULO #5")
+
 
 if __name__ == "__main__":
     main()
