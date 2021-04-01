@@ -17,9 +17,5 @@ def main():
 
     bienvenida(aviones, pilotos)
 
-    avion = Avion('BTW', 'HOLAA')
-
-    print(avion.getName())
-
 
 main()
