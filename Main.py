@@ -57,26 +57,27 @@ def busqueda():
             'Volver',
         ])
 
-        serial = ''
+        serial = None
 
         if menu.opcion == '1':
             serial = input('Ingrese serial de avion: ')
             # TODO: VALIDACIONES
         elif menu.opcion == '2':
             nombre = input('Ingrese nombre de avion: ')
-            # TODO: VALIDACIONES
-            serial = hasho.busquedaPorNombre(nombre)['serial']
+            if hasho.busquedaPorNombre(nombre):
+                serial = hasho.busquedaPorNombre(nombre)['serial']
         elif menu.opcion == '3':
             modelo = input('Ingrese modelo de avion: ')
-            # TODO: VALIDACIONES
-            serial = hasho.busquedaPorModelo(modelo)['serial']
+            if hasho.busquedaPorModelo(modelo):
+                serial = hasho.busquedaPorModelo(modelo)['serial']
         elif menu.opcion == '4':
             return
         else:
-            print("\nOpcion no valida intente otra vez\n")
+            print("\nOpcion no valida intente otra vez")
+            break
 
-        
         selecionar(serial)
+            
 
 
 def selecionar(serial):
@@ -90,11 +91,10 @@ def selecionar(serial):
             piloto = avion.piloto
 
         print(f'''  \nAvion Encontrado!
-        Serial: {avion.serial}
-        Nombre: {avion.name}
-        Modelo: {avion.modelo}
-        Piloto: {piloto}
-        ''')
+    Serial: {avion.serial}
+    Nombre: {avion.name}
+    Modelo: {avion.modelo}
+    Piloto: {piloto}''')
 
         menu = None
 
@@ -117,16 +117,18 @@ def selecionar(serial):
                     liberarPiloto()
                 else:
                     liberarPiloto()
+                break
             elif menu.opcion == '2':
                 eliminarAvion(avion.serial)
+                break
             elif menu.opcion == '3':
-                return
+                break
             else:
-                print("\nOpcion no valida intente otra vez\n")
+                print("\nOpcion no valida intente otra vez")
 
 
     else:
-        print('Avion no encontrado.')
+        print('\nAvion no encontrado.')
 
 def asignarPiloto():
     # TODO:

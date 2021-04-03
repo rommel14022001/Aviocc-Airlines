@@ -57,6 +57,8 @@ class HashTable():
         return None
 
     def getAvion(self, serial):
+        if not serial:
+            return None
         posicion = self.buscarPosicionPorSerial(serial)
 
         if posicion:
