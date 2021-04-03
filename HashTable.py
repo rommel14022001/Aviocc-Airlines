@@ -1,5 +1,4 @@
 from Avion import *
-from ListaEnlazada2 import *
 
 
 class HashTable():
@@ -28,9 +27,9 @@ class HashTable():
     def hash(self, serial):
         return int(serial[1:]) % 3
 
-    # busqueda de posicion en matrix
+    # busqueda de posicion libre en matrix
     # @returns pocision: vector(i, j, k) | None si no hay espacio | False si ya existe
-    def buscarPosicion(self, serial):
+    def buscarPosicionLibre(self, serial):
         i = self.hash(serial)
         res = []
 
@@ -41,6 +40,19 @@ class HashTable():
                     return res
                 elif self.table[i][j][k].serial == serial:
                     return False
+
+        return None
+
+    # busqueda de posicion ocupada en matrix
+    # @returns pocision: vector(i, j, k) | None si no existe avion con serial
+    def buscarPorSerial(self, serial):
+        i = self.hash(serial)       # Busqueda Hash
+
+        for j in range(7):          # Busqueda Secuencial
+            for k in range(2):
+                if self.table[i][j][k] != None:
+                    if self.table[i][j][k].serial == serial:
+                        return [ i, j, k ]
 
         return None
 
@@ -71,7 +83,7 @@ class HashTable():
             print('\n')
 
     def insertar(self, avion):
-        posicion = self.buscarPosicion(avion.serial)
+        posicion = self.buscarPosicionLibre(avion.serial)
 
         if posicion:
             i = posicion[0]
@@ -83,6 +95,29 @@ class HashTable():
             print("NO HAY MAS ESPACIO PARA AGREGAR ESTE AVION")
         elif posicion == False:
             print("EL AVION CON ESE SERIAL YA SE ENCUENTRA REGISTRADO!!!")
+
+    def eliminar(self, serial):
+        posicion = self.buscarPorSerial(serial)
+
+        if posicion:
+            i = posicion[0]
+            j = posicion[1]
+            k = posicion[2]
+            arr = []
+            for x in range(7):
+                for y in range(2):
+                    arr.append(self.table[i][x][y])
+            arr.pop(j * 2 + k)
+            arr.append(None)
+
+            newArr = []
+
+            for e in range(0, 14, 2):
+                newArr.append([ arr[e], arr[e + 1] ])
+
+            self.table[i] = newArr
+        else:
+            print("NO EXISTE AVION CON ESTE SERIAL")
 
     def AddAvion(self, avion):
 
