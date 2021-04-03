@@ -45,7 +45,7 @@ class HashTable():
 
     # busqueda de posicion ocupada en matrix
     # @returns pocision: vector(i, j, k) | None si no existe avion con serial
-    def buscarPorSerial(self, serial):
+    def buscarPosicionPorSerial(self, serial):
         i = self.hash(serial)       # Busqueda Hash
 
         for j in range(7):          # Busqueda Secuencial
@@ -55,6 +55,14 @@ class HashTable():
                         return [ i, j, k ]
 
         return None
+
+    def getAvion(self, serial):
+        posicion = self.buscarPosicionPorSerial(serial)
+
+        if posicion:
+            return self.table[ posicion[0] ][ posicion[1] ][ posicion[2] ]
+        else:
+            return None
 
     def insertarEnIndices(self, avion):
         self.indicesNombres.append(
@@ -97,7 +105,7 @@ class HashTable():
             print("EL AVION CON ESE SERIAL YA SE ENCUENTRA REGISTRADO!!!")
 
     def eliminar(self, serial):
-        posicion = self.buscarPorSerial(serial)
+        posicion = self.buscarPosicionPorSerial(serial)
 
         if posicion:
             i = posicion[0]
@@ -314,7 +322,7 @@ class HashTable():
                 high = mid - 1
 
             else:
-                return mid
+                return self.indicesNombres[mid]
 
         return None
 
@@ -333,6 +341,6 @@ class HashTable():
                 high = mid - 1
 
             else:
-                return mid
+                return self.indicesModelo[mid]
 
         return None

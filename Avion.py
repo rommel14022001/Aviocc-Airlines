@@ -8,4 +8,3 @@ class Avion():
         self.serial = serial
         self.modelo = modelo
         self.piloto = None
-        self.siguiente = None
