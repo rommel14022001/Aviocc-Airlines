@@ -8,6 +8,7 @@ from HashTable import *
 
 # paths
 dirname = os.path.dirname(__file__)
+path_HashTable = (os.path.join(dirname, 'HashTable.txt'))
 path_aviones = (os.path.join(dirname, 'Aviones.txt'))
 path_pilotos = (os.path.join(dirname, 'Pilotos.txt'))
 
@@ -45,6 +46,7 @@ hasho.print()
 def main():
     
     # TODO: CARGAR LOS DATOS EN EL HASH TABLE
+    hasho = recibir_datos_del_txt(path_HashTable)
 
     print(" <-- Bienvenido a la Base de Datos de Aviones de Occidente Aviocc! -->")
 
@@ -94,6 +96,7 @@ def insercion():
     
     newAvion = Avion(nombre, modelo, serial)
     if(hasho.insertar(newAvion)):
+        cargar_datos_en_txt(path_HashTable, hasho)
         print(' \-- Se ha agregado el avion a la base de datos --/')
         
         
@@ -209,6 +212,7 @@ def liberarPiloto():
 
 def eliminarAvion(serial):
     hasho.eliminar(serial)
+    cargar_datos_en_txt(path_HashTable, hasho)
     print('\n\-- Se ha eliminado el avion con Exito! --/')
     # TODO: MENSAJE DE EXISTO
     pass
