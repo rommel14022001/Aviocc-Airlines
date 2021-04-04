@@ -87,7 +87,7 @@ def busqueda():
                     print('\nError. El primer digito del Serial debe ser una letra en Mayusculas.')
                 # El serial contiene una sola letra
                 elif(contA > 1):
-                    print('\nError. El serial solo tiene un Caracter Alfabetico.')
+                    print('\nError. El serial solo debe contener un Caracter Alfabetico.')
                 # El serial contiene 8 Digitos
                 elif(ContN > 8 or ContN < 8):
                     print('\nError. El serial debe contener 8 numeros.')
