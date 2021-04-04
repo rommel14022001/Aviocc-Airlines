@@ -53,21 +53,22 @@ def insercion():
         
         serial = input('\nIngrese el serial del avion: ')
         # Validar que sea unico
-
         if(validaciones(serial,'serial')):
-
             modelo = input('\nIngrese el modelo del avion: ')
             # Validar que sea unico
-            
-            if(validaciones(modelo, 'modelo')):
-                
-                nombre = input('\nIngrese el nombre del avion: ')
-                # Validar que sea unico
-                if(validaciones(nombre, 'nombre')):
-                    break
+            if(hasho.busquedaPorModelo(modelo) == None):
+                if(validaciones(modelo, 'modelo')):
+                    nombre = input('\nIngrese el nombre del avion: ')
+                    # Validar que sea unico
+                    if(hasho.busquedaPorNombre(nombre) == None):
+                        if(validaciones(nombre, 'nombre')):
+                            break
+                    else:
+                        print('\nYa existe un avion con el nombre ingresado.')
+            else:
+                print('\nYa existe un avion con el modelo ingresado.')
         
-        
-    pass
+
 
 def busqueda():
 
