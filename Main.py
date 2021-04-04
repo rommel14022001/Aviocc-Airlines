@@ -77,7 +77,7 @@ def busqueda():
                         ContN+=1
 
                 # El serial es de 9 caracteres
-                if(serial.len() < 9):
+                if(len(serial) < 9):
                     print('\nError. El serial de un Avion es de 9 Digitos.')
                 # El primer digito es una letra
                 elif not(serial[0].isalpha()):
@@ -100,7 +100,7 @@ def busqueda():
             # VALIDACIONES
             
             # Maximo 12 Caracteres
-            if(nombre.len() > 12):
+            if(len(nombre) > 12):
                 print('\nError. El nombre de un avion es de Maximo 12 Caracteres.')
 
             if hasho.busquedaPorNombre(nombre):
@@ -111,7 +111,7 @@ def busqueda():
             # VALIDACIONES
 
             # Maximo 20 Caracteres
-            if(modelo.len() > 20):
+            if(len(modelo) > 20):
                 print('\nError. El modelo de un avion es de Maximo 20 Caracteres.')
 
             if hasho.busquedaPorModelo(modelo):
