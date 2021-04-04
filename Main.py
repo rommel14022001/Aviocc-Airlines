@@ -256,6 +256,12 @@ def validaciones(validar, indicador):
             print('\n** Error. El nombre de un avion es de Maximo 12 Caracteres. **')
         else:
             return True
+    elif (indicador == 'piloto'):
+        # Nombre del piloto Maximo 15 Caracteres
+        if(len(validar) > 12):
+            print('\n** Error. El nombre de un avion es de Maximo 12 Caracteres. **')
+        else:
+            return True
             
 
 if __name__ == "__main__":
