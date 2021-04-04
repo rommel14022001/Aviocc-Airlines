@@ -28,7 +28,7 @@ class HashTable():
         return int(serial[1:]) % 3
 
     # busqueda de posicion libre en matrix
-    # @returns pocision: vector(i, j, k) | None si no hay espacio | False si ya existe
+    # @returns pocision: vector(i, j, k) | None si no hay espacio | False si ya existe un avion con algun dato repetido
     def buscarPosicionLibre(self, serial):
         i = self.hash(serial)
         res = []
@@ -77,8 +77,9 @@ class HashTable():
         self.indicesModelo.sort(key=self.sortByModel)
 
     def eliminarEnIndices(self, avion):
-        self.indicesModelo.pop(self.busquedaPorModelo(avion.modelo))
-        self.indicesNombres.pop(self.busquedaPorNombre(avion.name))
+        self.indicesModelo.pop(self.busquedaPorModelo(avion.modelo)['indice'])
+        self.indicesNombres.pop(self.busquedaPorNombre(avion.name)['indice'])
+        # TODO ELIMINAR EN INDICES DE PILOTO SI EXISTEN
 
     def print(self):
         for i in range(len(self.table)):
@@ -94,17 +95,24 @@ class HashTable():
 
     def insertar(self, avion):
         posicion = self.buscarPosicionLibre(avion.serial)
+        repetido = False
 
-        if posicion:
-            i = posicion[0]
-            j = posicion[1]
-            k = posicion[2]
-            self.table[i][j][k] = avion
-            self.insertarEnIndices(avion)
-        elif posicion == None:
-            print("NO HAY MAS ESPACIO PARA AGREGAR ESTE AVION")
-        elif posicion == False:
-            print("EL AVION CON ESE SERIAL YA SE ENCUENTRA REGISTRADO!!!")
+        if self.busquedaPorModelo(avion.modelo) or self.busquedaPorNombre(avion.name):
+            repetido = True
+
+        if not repetido:
+            if posicion:
+                i = posicion[0]
+                j = posicion[1]
+                k = posicion[2]
+                self.table[i][j][k] = avion
+                self.insertarEnIndices(avion)
+            elif posicion == None:
+                print("NO HAY MAS ESPACIO PARA AGREGAR ESTE AVION")
+            elif posicion == False:
+                print("EL AVION CON ESE SERIAL YA SE ENCUENTRA REGISTRADO!!!")
+        else:
+            print("ALGUN DATO ESTA REPETIDO EN OTRO AVION")
 
     def eliminar(self, serial):
         posicion = self.buscarPosicionPorSerial(serial)
@@ -113,6 +121,7 @@ class HashTable():
             i = posicion[0]
             j = posicion[1]
             k = posicion[2]
+            avion = self.table[i][j][k]
             arr = []
             for x in range(7):
                 for y in range(2):
@@ -126,6 +135,7 @@ class HashTable():
                 newArr.append([ arr[e], arr[e + 1] ])
 
             self.table[i] = newArr
+            self.eliminarEnIndices(avion)
         else:
             print("NO EXISTE AVION CON ESTE SERIAL")
 
@@ -324,7 +334,7 @@ class HashTable():
                 high = mid - 1
 
             else:
-                return self.indicesNombres[mid]
+                return { 'avion': self.indicesNombres[mid], 'indice': mid }
 
         return None
 
@@ -343,6 +353,6 @@ class HashTable():
                 high = mid - 1
 
             else:
-                return self.indicesModelo[mid]
+                return { 'avion': self.indicesModelo[mid], 'indice': mid }
 
         return None
