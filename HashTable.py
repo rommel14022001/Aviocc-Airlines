@@ -107,12 +107,13 @@ class HashTable():
                 k = posicion[2]
                 self.table[i][j][k] = avion
                 self.insertarEnIndices(avion)
+                return True
             elif posicion == None:
-                print("NO HAY MAS ESPACIO PARA AGREGAR ESTE AVION")
+                print("\n** NO HAY MAS ESPACIO PARA AGREGAR ESTE AVION **")
             elif posicion == False:
-                print("EL AVION CON ESE SERIAL YA SE ENCUENTRA REGISTRADO!!!")
+                print("\n** YA SE ENCUENTRA REGISTRADO UN AVION CON ESE SERIAL **")
         else:
-            print("ALGUN DATO ESTA REPETIDO EN OTRO AVION")
+            print("\n** YA SE ENCUENTRA UN AVION REGISTRADO CON UNO DE LOS DATOS INGRESADOS. **")
 
     def eliminar(self, serial):
         posicion = self.buscarPosicionPorSerial(serial)
@@ -137,7 +138,7 @@ class HashTable():
             self.table[i] = newArr
             self.eliminarEnIndices(avion)
         else:
-            print("NO EXISTE AVION CON ESTE SERIAL")
+            print("\n\-- NO EXISTE AVION CON ESTE SERIAL --/")
 
     def AddAvion(self, avion):
 
@@ -149,8 +150,8 @@ class HashTable():
         # VALIDAR DE QUE EL AVION CON ESE SERIAL NO ESTE REGISTRADO YA EN EL HASH TABLE
         if self.isAvionRegistered(residuo, serial):
 
-            print("***ERROR***")
-            print("EL AVION CON ESE SERIAL YA SE ENCUENTRA REGISTRADO!!!")
+            print("\n***ERROR***")
+            print("\-- EL AVION CON ESE SERIAL YA SE ENCUENTRA REGISTRADO!!! --/")
 
         else:
 
@@ -187,7 +188,7 @@ class HashTable():
                 self.indicesNombres.sort(key=self.sortByName)
                 self.indicesModelo.sort(key=self.sortByModel)
             else:
-                print("NO HAY MAS ESPACIO PARA AGREGAR ESTE AVION")
+                print("\n** NO HAY MAS ESPACIO PARA AGREGAR ESTE AVION **")
 
     def sortByName(self, e):
         return e['name']
@@ -226,12 +227,12 @@ class HashTable():
                 self.ordenarHash(residuo)
 
             else:
-                print("EL AVION CON ESE SERIAL NO SE ENCUENTRA REGISTRADO!!!")
+                print("\n** EL AVION CON ESE SERIAL NO SE ENCUENTRA REGISTRADO!!! **")
 
         else:
 
-            print("***ERROR***")
-            print("EL AVION CON ESE SERIAL NO SE ENCUENTRA REGISTRADO!!!")
+            print("\n***ERROR***")
+            print("\-- EL AVION CON ESE SERIAL NO SE ENCUENTRA REGISTRADO!!! --/")
 
     def isAvionRegistered(self, residuo, serial):
 

@@ -36,6 +36,8 @@ hasho.insertar(Avion('AV5', 'MA5', 'A00000013'))
 hasho.insertar(Avion('BV5', 'MB5', 'A00000014'))
 hasho.insertar(Avion('CV5', 'MC5', 'A00000015'))
 
+# Avion('NP1', 'MP1', 'A00000016')
+
 hasho.eliminar('A00000005')
 
 hasho.print()
@@ -44,7 +46,7 @@ def main():
     
     # TODO: CARGAR LOS DATOS EN EL HASH TABLE
 
-    print("Bienvenido a la Base de Datos de Aviones de Occidente Aviocc!")
+    print(" <-- Bienvenido a la Base de Datos de Aviones de Occidente Aviocc! -->")
 
     
     while True:
@@ -61,16 +63,16 @@ def main():
             busqueda()
         elif menu.opcion == '3':
             # TODO: GUARDAR NUEVO HASH TABLE EN BROMA
-            print('\nSe ha terminado el programa.')
+            print('\n<-- Se ha terminado el programa -->\n')
             break
         else:
-            print("\nOpcion no valida intente otra vez")
+            print("\n** Opcion no valida intente otra vez **")
 
     
 
 def insercion():
     # TODO
-    print('\n<-- REGISTRO DE NUEVO AVION -->')
+    print('\n<-- REGISTRO DE AVION -->')
     while True:
         
         serial = input('\nIngrese el serial del avion: ')
@@ -86,9 +88,14 @@ def insercion():
                         if(validaciones(nombre, 'nombre')):
                             break
                     else:
-                        print('\nYa existe un avion con el nombre ingresado.')
+                        print('\n** Ya existe un avion con el nombre ingresado. **')
             else:
-                print('\nYa existe un avion con el modelo ingresado.')
+                print('\n** Ya existe un avion con el modelo ingresado. **')
+    
+    newAvion = Avion(nombre, modelo, serial)
+    if(hasho.insertar(newAvion)):
+        print(' \-- Se ha agregado el avion a la base de datos --/')
+        
         
 
 
@@ -135,7 +142,7 @@ def busqueda():
         elif menu.opcion == '4':
             return
         else:
-            print("\nOpcion no valida intente otra vez")
+            print("\n** Opcion no valida intente otra vez **")
             break
 
         selecionar(serial)
@@ -186,11 +193,11 @@ def selecionar(serial):
             elif menu.opcion == '3':
                 break
             else:
-                print("\nOpcion no valida intente otra vez")
+                print("\n** Opcion no valida intente otra vez **")
 
 
     else:
-        print('\nAvion no encontrado.')
+        print('\n\-- Avion no encontrado. --/')
 
 def asignarPiloto():
     # TODO:
@@ -202,7 +209,7 @@ def liberarPiloto():
 
 def eliminarAvion(serial):
     hasho.eliminar(serial)
-    print('\nSe ha eliminado el avion con Exito!')
+    print('\n\-- Se ha eliminado el avion con Exito! --/')
     # TODO: MENSAJE DE EXISTO
     pass
 
@@ -218,31 +225,31 @@ def validaciones(validar, indicador):
                 ContN+=1
         # El serial es de 9 caracteres
         if(len(validar) < 9):
-            print('\nError. El serial de un Avion es de 9 Digitos.')
+            print('\n** Error. El serial de un Avion es de 9 Digitos. **')
         # El primer digito es una letra
         elif not(validar[0].isalpha()):
-            print('\nError. El primer digito del Serial debe ser una letra.')
+            print('\n** Error. El primer digito del Serial debe ser una letra. **')
         # El serial contiene una sola letra en mayuscula
         elif not(validar[0].isupper()):
-            print('\nError. El primer digito del Serial debe ser una letra en Mayusculas.')
+            print('\n** Error. El primer digito del Serial debe ser una letra en Mayusculas. **')
         # El serial contiene una sola letra
         elif(contA > 1):
-            print('\nError. El serial solo debe contener un Caracter Alfabetico.')
+            print('\n** Error. El serial solo debe contener un Caracter Alfabetico. **')
         # El serial contiene 8 Digitos
         elif(ContN > 8 or ContN < 8):
-            print('\nError. El serial debe contener 8 numeros.')
+            print('\n** Error. El serial debe contener 8 numeros. **')
         else:
             return True
     elif (indicador == 'modelo'):
         # Maximo 20 Caracteres
         if(len(validar) > 20):
-            print('\nError. El modelo de un avion es de Maximo 20 Caracteres.')
+            print('\n** Error. El modelo de un avion es de Maximo 20 Caracteres. **')
         else:
             return True
     elif (indicador == 'nombre'):
         # Maximo 12 Caracteres
         if(len(validar) > 12):
-            print('\nError. El nombre de un avion es de Maximo 12 Caracteres.')
+            print('\n** Error. El nombre de un avion es de Maximo 12 Caracteres. **')
         else:
             return True
             
