@@ -48,6 +48,25 @@ def main():
 
 def insercion():
     # TODO
+    print('\n<-- REGISTRO DE NUEVO AVION -->')
+    while True:
+        
+        serial = input('\nIngrese el serial del avion: ')
+        # Validar que sea unico
+
+        if(validaciones(serial,'serial')):
+
+            modelo = input('\nIngrese el modelo del avion: ')
+            # Validar que sea unico
+            
+            if(validaciones(modelo, 'modelo')):
+                
+                nombre = input('\nIngrese el nombre del avion: ')
+                # Validar que sea unico
+                if(validaciones(nombre, 'nombre')):
+                    break
+        
+        
     pass
 
 def busqueda():
@@ -67,54 +86,29 @@ def busqueda():
             while True:
                 serial = input('Ingrese serial de avion: ')
                 # VALIDACIONES
-                contA = 0
-                ContN = 0
-                for c in serial:
-                    if (c.isalpha()):
-                        contA+=1
-                    if(c.isdigit()):
-                        ContN+=1
-
-                # El serial es de 9 caracteres
-                if(len(serial) < 9):
-                    print('\nError. El serial de un Avion es de 9 Digitos.')
-                # El primer digito es una letra
-                elif not(serial[0].isalpha()):
-                    print('\nError. El primer digito del Serial debe ser una letra.')
-                # El serial contiene una sola letra en mayuscula
-                elif not(serial[0].isupper()):
-                    print('\nError. El primer digito del Serial debe ser una letra en Mayusculas.')
-                # El serial contiene una sola letra
-                elif(contA > 1):
-                    print('\nError. El serial solo debe contener un Caracter Alfabetico.')
-                # El serial contiene 8 Digitos
-                elif(ContN > 8 or ContN < 8):
-                    print('\nError. El serial debe contener 8 numeros.')
-                else:
+                if (validaciones(serial, 'serial')):
                     break
             
         elif menu.opcion == '2':
-            nombre = input('Ingrese nombre de avion: ')
-
-            # VALIDACIONES
-            
-            # Maximo 12 Caracteres
-            if(len(nombre) > 12):
-                print('\nError. El nombre de un avion es de Maximo 12 Caracteres.')
+            while True:
+                nombre = input('Ingrese nombre de avion: ')
+                # VALIDACIONES
+                if (validaciones(nombre, 'nombre')):
+                    break
 
             if hasho.busquedaPorNombre(nombre):
                 serial = hasho.busquedaPorNombre(nombre)['serial']
+
         elif menu.opcion == '3':
-            modelo = input('Ingrese modelo de avion: ')
-
-            # VALIDACIONES
-
-            # Maximo 20 Caracteres
-            if(len(modelo) > 20):
-                print('\nError. El modelo de un avion es de Maximo 20 Caracteres.')
+            while True:
+                modelo = input('Ingrese modelo de avion: ')
+                # VALIDACIONES
+                if (validaciones(modelo, 'modelo')):
+                    break
 
             if hasho.busquedaPorModelo(modelo):
                 serial = hasho.busquedaPorModelo(modelo)['serial']
+
         elif menu.opcion == '4':
             return
         else:
@@ -188,6 +182,47 @@ def eliminarAvion(serial):
     print('\nSe ha eliminado el avion con Exito!')
     # TODO: MENSAJE DE EXISTO
     pass
+
+
+def validaciones(validar, indicador):
+    if(indicador == 'serial'):
+        contA = 0
+        ContN = 0
+        for c in validar:
+            if (c.isalpha()):
+                contA+=1
+            if(c.isdigit()):
+                ContN+=1
+        # El serial es de 9 caracteres
+        if(len(validar) < 9):
+            print('\nError. El serial de un Avion es de 9 Digitos.')
+        # El primer digito es una letra
+        elif not(validar[0].isalpha()):
+            print('\nError. El primer digito del Serial debe ser una letra.')
+        # El serial contiene una sola letra en mayuscula
+        elif not(validar[0].isupper()):
+            print('\nError. El primer digito del Serial debe ser una letra en Mayusculas.')
+        # El serial contiene una sola letra
+        elif(contA > 1):
+            print('\nError. El serial solo debe contener un Caracter Alfabetico.')
+        # El serial contiene 8 Digitos
+        elif(ContN > 8 or ContN < 8):
+            print('\nError. El serial debe contener 8 numeros.')
+        else:
+            return True
+    elif (indicador == 'modelo'):
+        # Maximo 20 Caracteres
+        if(len(validar) > 20):
+            print('\nError. El modelo de un avion es de Maximo 20 Caracteres.')
+        else:
+            return True
+    elif (indicador == 'nombre'):
+        # Maximo 12 Caracteres
+        if(len(validar) > 12):
+            print('\nError. El nombre de un avion es de Maximo 12 Caracteres.')
+        else:
+            return True
+            
 
 if __name__ == "__main__":
     main()
