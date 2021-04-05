@@ -12,13 +12,13 @@ path_HashTable = (os.path.join(dirname, 'HashTable.txt'))
 hasho = HashTable()
 hasho = recibir_datos_del_txt(path_HashTable)
 
+
 def main():
 
     hasho.print()
 
     print("\n <-- Bienvenido a la Base de Datos de Aviones de Occidente Aviocc! -->")
 
-    
     while True:
 
         menu = Menu([
@@ -32,22 +32,20 @@ def main():
         elif menu.opcion == '2':
             busqueda()
         elif menu.opcion == '3':
-            # TODO: GUARDAR NUEVO HASH TABLE EN BROMA
             print('\n<-- Se ha terminado el programa -->\n')
             break
         else:
             print("\n** Opcion no valida intente otra vez **")
 
-    
 
 def insercion():
     # TODO
     print('\n<-- REGISTRO DE AVION -->')
     while True:
-        
+
         serial = input('\nIngrese el serial del avion: ')
         # Validar que sea unico
-        if(validaciones(serial,'serial')):
+        if(validaciones(serial, 'serial')):
             modelo = input('\nIngrese el modelo del avion: ')
             # Validar que sea unico
             if(hasho.busquedaPorModelo(modelo) == None):
@@ -61,13 +59,11 @@ def insercion():
                         print('\n** Ya existe un avion con el nombre ingresado. **')
             else:
                 print('\n** Ya existe un avion con el modelo ingresado. **')
-    
+
     newAvion = Avion(nombre, modelo, serial)
     if(hasho.insertar(newAvion)):
         cargar_datos_en_txt(path_HashTable, hasho)
         print('\n \-- Se ha agregado el avion a la base de datos --/')
-        
-        
 
 
 def busqueda():
@@ -83,13 +79,13 @@ def busqueda():
         serial = None
 
         if menu.opcion == '1':
-            
+
             while True:
                 serial = input('\nIngrese el serial del avion: ')
                 # VALIDACIONES
                 if (validaciones(serial, 'serial')):
                     break
-            
+
         elif menu.opcion == '2':
             while True:
                 nombre = input('\nIngrese el nombre del avion: ')
@@ -117,7 +113,6 @@ def busqueda():
             break
 
         selecionar(serial)
-            
 
 
 def selecionar(serial):
@@ -166,23 +161,24 @@ def selecionar(serial):
             else:
                 print("\n** Opcion no valida intente otra vez **")
 
-
     else:
         print('\n\-- Avion no encontrado. --/')
+
 
 def asignarPiloto(avion):
     nombre_piloto = input('\nNombre del piloto: ')
     if(validaciones(nombre_piloto, 'piloto')):
         hasho.asignarPiloto(avion, nombre_piloto)
         cargar_datos_en_txt(path_HashTable, hasho)
-        print(f'\n\-- Se ha asignado al piloto: {nombre_piloto} con Exito! --/')
-    
+        print(
+            f'\n\-- Se ha asignado al piloto: {nombre_piloto} con Exito! --/')
+
 
 def liberarPiloto(avion):
     hasho.asignarPiloto(avion, None)
     cargar_datos_en_txt(path_HashTable, hasho)
     print('\n\-- Se ha liberado al piloto con Exito! --/')
-    
+
 
 def eliminarAvion(serial):
     hasho.eliminar(serial)
@@ -197,9 +193,9 @@ def validaciones(validar, indicador):
         ContN = 0
         for c in validar:
             if (c.isalpha()):
-                contA+=1
+                contA += 1
             if(c.isdigit()):
-                ContN+=1
+                ContN += 1
         # El serial es de 9 caracteres
         if(len(validar) < 9):
             print('\n** Error. El serial de un Avion es de 9 Digitos. **')
@@ -208,7 +204,8 @@ def validaciones(validar, indicador):
             print('\n** Error. El primer digito del Serial debe ser una letra. **')
         # El serial contiene una sola letra en mayuscula
         elif not(validar[0].isupper()):
-            print('\n** Error. El primer digito del Serial debe ser una letra en Mayusculas. **')
+            print(
+                '\n** Error. El primer digito del Serial debe ser una letra en Mayusculas. **')
         # El serial contiene una sola letra
         elif(contA > 1):
             print('\n** Error. El serial solo debe contener un Caracter Alfabetico. **')
@@ -235,7 +232,7 @@ def validaciones(validar, indicador):
             print('\n** Error. El nombre de un avion es de Maximo 12 Caracteres. **')
         else:
             return True
-            
+
 
 if __name__ == "__main__":
     main()
