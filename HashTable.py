@@ -99,7 +99,7 @@ class HashTable():
                 for k in range(len(self.table[i][j])):
                     print(' ', end='')
                     if self.table[i][j][k]:
-                        print(f'{self.table[i][j][k].piloto}', end='')
+                        print(f'{self.table[i][j][k].serial}', end='')
                     else:
                         print('NONE', end='')
                 print(' | ', end='')

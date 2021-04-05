@@ -4,8 +4,6 @@ import os
 from Menu import Menu
 from HashTable import *
 
-
-
 # paths
 dirname = os.path.dirname(__file__)
 path_HashTable = (os.path.join(dirname, 'HashTable.txt'))
@@ -18,7 +16,7 @@ def main():
 
     hasho.print()
 
-    print(" <-- Bienvenido a la Base de Datos de Aviones de Occidente Aviocc! -->")
+    print("\n <-- Bienvenido a la Base de Datos de Aviones de Occidente Aviocc! -->")
 
     
     while True:
@@ -67,7 +65,7 @@ def insercion():
     newAvion = Avion(nombre, modelo, serial)
     if(hasho.insertar(newAvion)):
         cargar_datos_en_txt(path_HashTable, hasho)
-        print(' \-- Se ha agregado el avion a la base de datos --/')
+        print('\n \-- Se ha agregado el avion a la base de datos --/')
         
         
 
@@ -87,14 +85,14 @@ def busqueda():
         if menu.opcion == '1':
             
             while True:
-                serial = input('Ingrese serial de avion: ')
+                serial = input('\nIngrese el serial del avion: ')
                 # VALIDACIONES
                 if (validaciones(serial, 'serial')):
                     break
             
         elif menu.opcion == '2':
             while True:
-                nombre = input('Ingrese nombre de avion: ')
+                nombre = input('\nIngrese el nombre del avion: ')
                 # VALIDACIONES
                 if (validaciones(nombre, 'nombre')):
                     break
@@ -104,7 +102,7 @@ def busqueda():
 
         elif menu.opcion == '3':
             while True:
-                modelo = input('Ingrese modelo de avion: ')
+                modelo = input('\nIngrese el modelo del avion: ')
                 # VALIDACIONES
                 if (validaciones(modelo, 'modelo')):
                     break
@@ -173,13 +171,18 @@ def selecionar(serial):
         print('\n\-- Avion no encontrado. --/')
 
 def asignarPiloto(avion):
-    nombre_piloto = input('Nombre de piloto: ')
-    hasho.asignarPiloto(avion, nombre_piloto)
-    # TODO MENSAJE DE EXITO Y GUARDAR DATOS
+    nombre_piloto = input('\nNombre del piloto: ')
+    if(validaciones(nombre_piloto, 'piloto')):
+        hasho.asignarPiloto(avion, nombre_piloto)
+        cargar_datos_en_txt(path_HashTable, hasho)
+        print(f'\n\-- Se ha asignado al piloto: {nombre_piloto} con Exito! --/')
+    
 
 def liberarPiloto(avion):
     hasho.asignarPiloto(avion, None)
-    # TODO MENSAJE DE EXITO Y GUARDAR DATOS
+    cargar_datos_en_txt(path_HashTable, hasho)
+    print('\n\-- Se ha liberado al piloto con Exito! --/')
+    
 
 def eliminarAvion(serial):
     hasho.eliminar(serial)
@@ -228,7 +231,7 @@ def validaciones(validar, indicador):
             return True
     elif (indicador == 'piloto'):
         # Nombre del piloto Maximo 15 Caracteres
-        if(len(validar) > 12):
+        if(len(validar) > 15):
             print('\n** Error. El nombre de un avion es de Maximo 12 Caracteres. **')
         else:
             return True
