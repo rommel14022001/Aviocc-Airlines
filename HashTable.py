@@ -20,6 +20,7 @@ class HashTable():
         ]
         self.indicesNombres = []
         self.indicesModelo = []
+        self.indicesPiloto = []
 
     # hash function
     # @param serial: string ej.'A61023124'
@@ -76,10 +77,21 @@ class HashTable():
         self.indicesNombres.sort(key=self.sortByName)
         self.indicesModelo.sort(key=self.sortByModel)
 
+    def insertarEnIndicePiloto(self, avion):
+        self.indicesPiloto.append(
+            { 'piloto': avion.piloto, 'serial': avion.serial }
+        )
+        self.indicesPiloto.sort(key=self.sortByPilot)
+
+    def eliminarEnIndicePiloto(self, avion):
+        if avion.piloto:
+            self.indicesPiloto.pop(self.busquedaPorPiloto(avion.piloto)['indice'])
+
+
     def eliminarEnIndices(self, avion):
         self.indicesModelo.pop(self.busquedaPorModelo(avion.modelo)['indice'])
         self.indicesNombres.pop(self.busquedaPorNombre(avion.name)['indice'])
-        # TODO ELIMINAR EN INDICES DE PILOTO SI EXISTEN
+
 
     def print(self):
         for i in range(len(self.table)):
@@ -87,7 +99,7 @@ class HashTable():
                 for k in range(len(self.table[i][j])):
                     print(' ', end='')
                     if self.table[i][j][k]:
-                        print(f'{self.table[i][j][k].name}', end='')
+                        print(f'{self.table[i][j][k].piloto}', end='')
                     else:
                         print('NONE', end='')
                 print(' | ', end='')
@@ -195,6 +207,9 @@ class HashTable():
 
     def sortByModel(self, e):
         return e['modelo']
+
+    def sortByPilot(self, e):
+        return e['piloto']
 
     def eliminarAvionSerial(self, serial):
 
@@ -357,3 +372,35 @@ class HashTable():
                 return { 'avion': self.indicesModelo[mid], 'indice': mid }
 
         return None
+    
+    def busquedaPorPiloto(self, piloto):
+        low = 0
+        high = len(self.indicesPiloto) - 1
+
+        while low <= high:
+
+            mid = (high + low) // 2
+
+            if self.indicesPiloto[mid]['piloto'] < piloto:
+                low = mid + 1
+
+            elif self.indicesPiloto[mid]['piloto'] > piloto:
+                high = mid - 1
+
+            else:
+                return { 'avion': self.indicesPiloto[mid], 'indice': mid }
+
+        return None
+
+    def asignarPiloto(self, avion, piloto):
+
+        if piloto:
+            if not self.busquedaPorPiloto(piloto):  # Si no existe piloto:
+                avion.piloto = piloto
+                self.insertarEnIndicePiloto(avion)
+            else:
+                # TODO: MENSAJE DE REPETIDO
+                print('YA EXISTE PILOTO EN OTRO AVION')
+        else:
+                self.eliminarEnIndicePiloto(avion)
+                avion.piloto = piloto

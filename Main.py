@@ -12,37 +12,11 @@ path_HashTable = (os.path.join(dirname, 'HashTable.txt'))
 
 # Estructuras de datos
 hasho = HashTable()
-
-hasho.insertar(Avion('AV1', 'MA1', 'A00000001'))
-hasho.insertar(Avion('BV1', 'MB1', 'A00000002'))
-hasho.insertar(Avion('CV1', 'MC1', 'A00000003'))
-
-hasho.insertar(Avion('AV2', 'MA2', 'A00000004'))
-hasho.insertar(Avion('BV2', 'MB2', 'A00000005'))
-hasho.insertar(Avion('CV2', 'MC2', 'A00000006'))
-
-hasho.insertar(Avion('AV3', 'MA3', 'A00000007'))
-hasho.insertar(Avion('BV3', 'MB3', 'A00000008'))
-hasho.insertar(Avion('CV3', 'MC3', 'A00000009'))
-
-hasho.insertar(Avion('AV4', 'MA4', 'A00000010'))
-hasho.insertar(Avion('BV4', 'MB4', 'A00000011'))
-hasho.insertar(Avion('CV4', 'MC4', 'A00000012'))
-
-hasho.insertar(Avion('AV5', 'MA5', 'A00000013'))
-hasho.insertar(Avion('BV5', 'MB5', 'A00000014'))
-hasho.insertar(Avion('CV5', 'MC5', 'A00000015'))
-
-# Avion('NP1', 'MP1', 'A00000016')
-
-hasho.eliminar('A00000005')
-
-hasho.print()
+hasho = recibir_datos_del_txt(path_HashTable)
 
 def main():
-    
-    # TODO: CARGAR LOS DATOS EN EL HASH TABLE
-    hasho = recibir_datos_del_txt(path_HashTable)
+
+    hasho.print()
 
     print(" <-- Bienvenido a la Base de Datos de Aviones de Occidente Aviocc! -->")
 
@@ -182,9 +156,9 @@ def selecionar(serial):
 
             if menu.opcion == '1':
                 if avion.piloto:
-                    liberarPiloto()
+                    liberarPiloto(avion)
                 else:
-                    liberarPiloto()
+                    asignarPiloto(avion)
                 break
             elif menu.opcion == '2':
                 eliminarAvion(avion.serial)
@@ -198,19 +172,19 @@ def selecionar(serial):
     else:
         print('\n\-- Avion no encontrado. --/')
 
-def asignarPiloto():
-    # TODO:
-    pass
+def asignarPiloto(avion):
+    nombre_piloto = input('Nombre de piloto: ')
+    hasho.asignarPiloto(avion, nombre_piloto)
+    # TODO MENSAJE DE EXITO Y GUARDAR DATOS
 
-def liberarPiloto():
-    # TODO:
-    pass
+def liberarPiloto(avion):
+    hasho.asignarPiloto(avion, None)
+    # TODO MENSAJE DE EXITO Y GUARDAR DATOS
 
 def eliminarAvion(serial):
     hasho.eliminar(serial)
     cargar_datos_en_txt(path_HashTable, hasho)
     print('\n\-- Se ha eliminado el avion con Exito! --/')
-    # TODO: MENSAJE DE EXISTO
     pass
 
 
