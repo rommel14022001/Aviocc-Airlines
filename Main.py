@@ -9,13 +9,9 @@ from HashTable import *
 # paths
 dirname = os.path.dirname(__file__)
 path_HashTable = (os.path.join(dirname, 'HashTable.txt'))
-path_aviones = (os.path.join(dirname, 'Aviones.txt'))
-path_pilotos = (os.path.join(dirname, 'Pilotos.txt'))
 
 # Estructuras de datos
 hasho = HashTable()
-aviones = recibir_datos_del_txt(path_aviones)
-pilotos = recibir_datos_del_txt(path_pilotos)
 
 hasho.insertar(Avion('AV1', 'MA1', 'A00000001'))
 hasho.insertar(Avion('BV1', 'MB1', 'A00000002'))
