@@ -15,8 +15,6 @@ hasho = recibir_datos_del_txt(path_HashTable)
 
 def main():
 
-    hasho.print()
-
     print("\n <-- Bienvenido a la Base de Datos de Aviones de Occidente Aviocc! -->")
 
     while True:
@@ -24,6 +22,7 @@ def main():
         menu = Menu([
             'Inserción de un Nuevo Avión',
             'Búsqueda de un Avión',
+            'Imprimir HashTable',
             'Salir'
         ])
 
@@ -32,6 +31,9 @@ def main():
         elif menu.opcion == '2':
             busqueda()
         elif menu.opcion == '3':
+            printHashTable()
+        elif menu.opcion == '4':
+
             print('\n<-- Se ha terminado el programa -->\n')
             break
         else:
@@ -39,7 +41,7 @@ def main():
 
 
 def insercion():
-    # TODO
+
     print('\n<-- REGISTRO DE AVION -->')
     while True:
 
@@ -64,6 +66,31 @@ def insercion():
     if(hasho.insertar(newAvion)):
         cargar_datos_en_txt(path_HashTable, hasho)
         print('\n \-- Se ha agregado el avion a la base de datos --/')
+
+
+def printHashTable():
+    while True:
+        menu = Menu([
+            'Mostrar HashTable en base a los Seriales',
+            'Mostrar HashTable en base a los Modelos',
+            'Mostrar HashTable en base a los Nombres',
+            'Mostrar HashTable en base a los Pilotos',
+            'volver'
+        ])
+
+        if(menu.opcion == '1'):
+            hasho.print('serial')
+        elif (menu.opcion == '2'):
+            hasho.print('modelo')
+        elif (menu.opcion == '3'):
+            hasho.print('nombre')
+        elif (menu.opcion == '4'):
+            hasho.print('piloto')
+        elif (menu.opcion == '5'):
+            return
+        else:
+            print("\n** Opcion no valida intente otra vez **")
+            break
 
 
 def busqueda():

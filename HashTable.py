@@ -93,13 +93,22 @@ class HashTable():
         self.indicesNombres.pop(self.busquedaPorNombre(avion.name)['indice'])
 
 
-    def print(self):
+    def print(self, propiedad):
         for i in range(len(self.table)):
             for j in range(len(self.table[i])):
                 for k in range(len(self.table[i][j])):
                     print(' ', end='')
                     if self.table[i][j][k]:
-                        print(f'{self.table[i][j][k].serial}', end='')
+                        
+                        if(propiedad == 'serial'):
+                            print(f'{self.table[i][j][k].serial}', end='')
+                        elif(propiedad == 'modelo'):
+                            print(f'{self.table[i][j][k].modelo}', end='')
+                        elif(propiedad == 'nombre'):
+                            print(f'{self.table[i][j][k].name}', end='')
+                        elif(propiedad == 'piloto'):
+                            print(f'{self.table[i][j][k].piloto}', end='')
+                        
                     else:
                         print('NONE', end='')
                 print(' | ', end='')
